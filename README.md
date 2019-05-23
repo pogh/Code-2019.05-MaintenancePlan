@@ -11,11 +11,11 @@ but no log backups were being made.  The databases had never been checked nor th
 
 I've split the Maintenance Task into several sub-tasks which run throughout the day.
 
-![Schedule](/images/Schedule.PNG)
+![Schedule](./images/Schedule.PNG)
 
 ## Full Backup
 
-![FullBackup](/images/FullBackup.PNG)
+![FullBackup](./images/FullBackup.PNG)
 
 ### Steps
 
@@ -43,14 +43,14 @@ it never deletes them, leading to bloat over time.  If it need statistics which 
 
 ## Cleanup
 
-![Cleanup](/images/Cleanup.PNG)
+![Cleanup](./images/Cleanup.PNG)
 
 The clean up removes backup files and job histories, but checks first if there are recent backups!  If there are
 no recent backups, i.e. backups with in the last hour, it sends a warning email.
 
 ## Transaction Log Backup
 
-![TransactionLogBackup](/images/TransactionLogBackup.PNG)
+![TransactionLogBackup](./images/TransactionLogBackup.PNG)
 
 This subtask runs every 10 minutes to backup the log file for the databases with the FULL backup model.  The
 additional step resizes the log file of the main database once a day.  This is normally bad (!!), but
@@ -60,14 +60,14 @@ and remove this ugly step.
 
 ## Index Optimisation
 
-![IndexOptimisation](/images/IndexOptimisation.PNG)
+![IndexOptimisation](./images/IndexOptimisation.PNG)
 
 This subtask runs Ola Hallengren's dbo.DatabaseIntegrityCheck and dbo.IndexOptimize.  I used a non-blocking
 loop to make sure the each database gets checked once a week.  The step SET PAGE_VERIFY CHECKSUM sets
 all database to Page Verify Checksum since some developers set this to NONE in the hope of 'optimising'
 performance.  I've now set up a Database Policy to enforce this.
 
-![IndexOptimisation_TSQLStatement](/images/IndexOptimisation_TSQLStatement.PNG)
+![IndexOptimisation_TSQLStatement](./images/IndexOptimisation_TSQLStatement.PNG)
 
 ## Rebuild All Indexes
 
